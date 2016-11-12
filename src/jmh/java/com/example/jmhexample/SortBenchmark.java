@@ -36,6 +36,8 @@ public class SortBenchmark {
         }
 
         public int[] getArray() {
+            if(arr.length==1)
+                return arr;
             return Arrays.copyOf(arr, arr.length);
         }
     }
