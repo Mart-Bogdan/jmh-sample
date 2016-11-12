@@ -20,7 +20,7 @@ public class SortBenchmark {
     @State(Scope.Benchmark)
     public static class Data {
 
-        @Param({"1", "16", "256","1024","8000","100000"})
+        @Param({"1", "16", "256", "1024", "8000", "10000", "20000", "30000", "50000", "100000"})
         int count;
 
         int[] arr;
@@ -30,7 +30,7 @@ public class SortBenchmark {
             arr = new int[count];
             Random random = new Random(1234);
             for (int i = 0; i < arr.length; i++) {
-                arr[i]=random.nextInt();
+                arr[i] = random.nextInt();
             }
 
         }
@@ -44,14 +44,14 @@ public class SortBenchmark {
      * cleaning up memory consumed by array copes
      */
     @TearDown(Level.Iteration)
-    public void runGcAfterIteration(){
+    public void runGcAfterIteration() {
         System.gc();
     }
 
 
     @Benchmark
     public int[] bubbleSort(Data d) {
-        if(d.count>8000)
+        if (d.count > 30000)
             throw new RuntimeException("To many data for Bubble Sort");
         int[] array = d.getArray();
 
