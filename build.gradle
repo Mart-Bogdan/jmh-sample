@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'me.champeau.gradle.jmh' version '0.3.0'
+}
+
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+
+task cleanJmhGeneratedSources(type: Delete) {
+    delete "$buildDir/jmh-generated-sources"
+    delete "$buildDir/jmh-generated-classes"
+}
+
+project.tasks['jmhRunBytecodeGenerator'].dependsOn('cleanJmhGeneratedSources')
+
+
+project.tasks['jmh'].dependsOn('cleanJmhGeneratedSources')
